@@ -12,7 +12,7 @@ import javax.swing.border.Border;
 
 public class HomeView {
 	private JFrame homeFrame;
-	private JPanel songsListPanel, westPanel, logincardPanel;
+	private JPanel songsListPanel, westPanel, logincardPanel, logincardcontainerPanel;
 	private JTextField username, password;
 	private JButton loginButton, playPauseButton, forwardButton, backButton, nextButton, prevButton;
 	private JProgressBar musicBar;
@@ -37,6 +37,7 @@ public class HomeView {
 		loginPanel = new LoginPanel();
 		loginPanel.getLoginButton().addActionListener(new btnLogin_Pressed());
 		logoutPanel = new LogoutPanel();
+		logoutPanel.getLogoutButton().addActionListener(new btnLogout_Pressed());
 	
 		controlPanel = new ControlPanel();
 		
@@ -45,7 +46,12 @@ public class HomeView {
 		logincardPanel.add(loginPanel, "Login");
 		logincardPanel.add(logoutPanel, "Logout");
 		logincardPanel.setBorder(blackBorder);
-		westPanel.add(logincardPanel, BorderLayout.NORTH);
+		logincardcontainerPanel = new JPanel();
+		logincardcontainerPanel.add(logincardPanel);
+		
+		
+		westPanel.add(logincardcontainerPanel, BorderLayout.NORTH);
+		
 		
 		homeFrame.add(westPanel, BorderLayout.WEST);
 		homeFrame.add(controlPanel, BorderLayout.PAGE_END);
@@ -59,6 +65,17 @@ public class HomeView {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			logincardLayout.show(logincardPanel, "Logout");
+		}
+		
+	}
+	
+	class btnLogout_Pressed implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			logincardLayout.show(logincardPanel, "Login");
 		}
 		
 	}

@@ -13,7 +13,7 @@ public class LogoutPanel extends JPanel{
 	{
 		setBorder(blackBorder);
 		setPreferredSize(new Dimension(300,100));
-		setLayout(new BoxLayout(this, 1));
+		setLayout(new GridLayout(5,2));
 		setMaximumSize(new Dimension(300,100));
 		
 		initialize();
@@ -21,7 +21,8 @@ public class LogoutPanel extends JPanel{
 	
 	private void initialize()
 	{
-		logoutButton = new JButton();
+		logoutButton = new JButton("Logout");
+		logoutButton.setPreferredSize(new Dimension(300,100));
 		welcomeText = new JLabel("Welcome, User!");
 		add(welcomeText);
 		add(logoutButton);
