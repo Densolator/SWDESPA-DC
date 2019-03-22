@@ -6,8 +6,8 @@ import javax.swing.border.Border;
 
 public class LoginPanel extends JPanel{
 	private JTextField username, password;
-	private JLabel usernameLabel, passwordLabel;
-	private JButton loginButton;
+	private JLabel usernameLabel, passwordLabel, signupLabel;
+	private JButton loginButton, signupButton;
 	private Border blackBorder = BorderFactory.createLineBorder(Color.BLACK);
 	
 	public LoginPanel() {
@@ -22,15 +22,27 @@ public class LoginPanel extends JPanel{
 	{
 		usernameLabel = new JLabel("Username: ");
 		passwordLabel = new JLabel("Password: ");
+		signupLabel = new JLabel("Don't have an account yet?");
 		username = new JTextField();
 		password = new JTextField();
 		loginButton = new JButton("Log in");
-		this.setLayout(new GridLayout(5,2));
+		signupButton = new JButton("Sign up");
+		
+		this.setLayout(new GridLayout(7,2));
+		
 		this.add(usernameLabel);
+		
 		this.add(username);
+		
 		this.add(passwordLabel);
+		
 		this.add(password);
+		
 		this.add(loginButton);
+		
+		this.add(signupLabel);
+		this.add(signupButton);
+		
 		
 	}
 	
@@ -38,4 +50,10 @@ public class LoginPanel extends JPanel{
 	{
 		return loginButton;
 	}
+	
+	public JButton getSignupButton()
+	{
+		return signupButton;
+	}
+	
 }
