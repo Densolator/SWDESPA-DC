@@ -7,12 +7,13 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 public class LoginPanel extends JPanel{
-	private LoginController controller = new LoginController();
+	private LoginController controller = new LoginController(this);
 	private JTextField username;
 	private JPasswordField password;
 	private JLabel usernameLabel, passwordLabel, signupLabel;
 	private JButton loginButton, signupButton;
 	private Border blackBorder = BorderFactory.createLineBorder(Color.BLACK);
+	boolean isLoggedin;
 	
 	public LoginPanel() {
 		setBorder(blackBorder);
@@ -30,7 +31,7 @@ public class LoginPanel extends JPanel{
 		username = new JTextField();
 		password = new JPasswordField();
 		loginButton = new JButton("Log in");
-		loginButton.addActionListener(new btnLogin_Pressed());
+//		loginButton.addActionListener(new btnLogin_Pressed());
 		signupButton = new JButton("Sign up");
 		
 		this.setLayout(new GridLayout(7,2));
@@ -61,12 +62,11 @@ public class LoginPanel extends JPanel{
 		return signupButton;
 	}
 	
-	class btnLogin_Pressed implements ActionListener
+	public boolean login()
 	{
-		public void actionPerformed(ActionEvent arg0) {
-			controller.login(username.getText(), password.toString());
-			
-		}
+		String pass = String.valueOf(password.getPassword());
+		boolean result = controller.login(username.getText(), pass);
+		return result;
 	}
 	
 }

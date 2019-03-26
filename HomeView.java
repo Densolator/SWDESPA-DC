@@ -89,7 +89,8 @@ public class HomeView {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			logincardLayout.show(logincardPanel, "Logout");
+			if(loginPanel.login())
+				logincardLayout.show(logincardPanel, "Logout");
 		}
 		
 	}
