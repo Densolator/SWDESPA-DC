@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 public class LoginPanel extends JPanel{
+	private LoginController controller = new LoginController();
 	private JTextField username;
 	private JPasswordField password;
 	private JLabel usernameLabel, passwordLabel, signupLabel;
@@ -29,25 +30,7 @@ public class LoginPanel extends JPanel{
 		username = new JTextField();
 		password = new JPasswordField();
 		loginButton = new JButton("Log in");
-		loginButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					Class.forName("com.mysql.jdbc.Driver");
-					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "");
-					Statement stmt = con.createStatement();
-					String sql = "SELECT * FROM user WHERE username='"+username.getText()+"' and password='"+password.getText().toString()+"'";
-					ResultSet rs = stmt.executeQuery(sql);
-					if(rs.next())
-						JOptionPane.showMessageDialog(null, "Login Successful");
-					else
-						JOptionPane.showMessageDialog(null, "Login Failed");
-					con.close();
-				}
-				catch(Exception e){
-					System.out.print(e);
-				}
-			}
-		});
+		loginButton.addActionListener(new btnLogin_Pressed());
 		signupButton = new JButton("Sign up");
 		
 		this.setLayout(new GridLayout(7,2));
@@ -76,6 +59,14 @@ public class LoginPanel extends JPanel{
 	public JButton getSignupButton()
 	{
 		return signupButton;
+	}
+	
+	class btnLogin_Pressed implements ActionListener
+	{
+		public void actionPerformed(ActionEvent arg0) {
+			controller.login(username.getText(), password.toString());
+			
+		}
 	}
 	
 }
