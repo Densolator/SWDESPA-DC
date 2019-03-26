@@ -10,7 +10,9 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import loginModule.LoginPanel;
 import musicPlayer.ControlPanel;
+import signupModule.SignupFrame;
 
 public class HomeView {
 	private JFrame homeFrame;
@@ -42,6 +44,7 @@ public class HomeView {
 		
 		loginPanel = new LoginPanel();
 		loginPanel.getLoginButton().addActionListener(new btnLogin_Pressed());
+		loginPanel.getSignupButton().addActionListener(new btnSignup_Pressed());
 		logoutPanel = new LogoutPanel();
 		logoutPanel.getLogoutButton().addActionListener(new btnLogout_Pressed());
 	
@@ -55,7 +58,6 @@ public class HomeView {
 		logincardcontainerPanel.add(logincardPanel);
 		
 		signupframe = new SignupFrame();
-		signupframe.showFrame();
 		
 		menuPanel = new MenuPanel();
 		menupanelContainer = new JPanel(new GridLayout());
@@ -105,6 +107,17 @@ public class HomeView {
 		}
 		
 	}
+	
+	class btnSignup_Pressed implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			signupframe.setVisible(true);
+		}
+		
+	} 
 	
 	class btnProfile_Pressed implements ActionListener
 	{

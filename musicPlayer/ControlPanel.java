@@ -55,7 +55,7 @@ public class ControlPanel extends JPanel{
 			nextButton.setBorderPainted(false);
 			nextButton.setContentAreaFilled(false);
 			
-			img = ImageIO.read(getClass().getResource("Back_button.png"));
+			img = ImageIO.read(getClass().getResource("Previous_icon.png"));
 			scaledimg = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 			prevButton = new JButton();
 			prevButton.setIcon(new ImageIcon(scaledimg));
