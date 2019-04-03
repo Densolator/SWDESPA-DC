@@ -83,7 +83,7 @@ public class HomeView {
 		homeFrame.add(controlPanel, BorderLayout.PAGE_END);
 		homeFrame.add(mainPanel, BorderLayout.CENTER);
 		homeFrame.setVisible(true);
-		mainPanel.setVisible(false);
+	
 	}
 	
 	class btnLogin_Pressed implements ActionListener
@@ -91,7 +91,6 @@ public class HomeView {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			mainPanel.setVisible(true);
 			if(loginPanel.login())
 				logincardLayout.show(logincardPanel, "Logout");
 		}
@@ -104,7 +103,7 @@ public class HomeView {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			mainPanel.setVisible(false);
+
 			logincardLayout.show(logincardPanel, "Login");
 			
 		}
