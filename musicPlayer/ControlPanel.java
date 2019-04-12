@@ -1,5 +1,7 @@
-package musicPlayer;
+package main.musicPlayer;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -10,9 +12,11 @@ public class ControlPanel extends JPanel{
 	private JButton playPauseButton, forwardButton, backButton, nextButton, prevButton;
 	private JProgressBar musicBar;
 	private Image img, scaledimg;
-	
-	public ControlPanel()
+	private MusicPlayerController controller = new MusicPlayerController();
+
+	public ControlPanel(MusicPlayerController controller)
 	{
+		this.controller = controller;
 		setBorder(blackBorder);
 		setPreferredSize(new Dimension(1000,100));
 		
@@ -25,7 +29,6 @@ public class ControlPanel extends JPanel{
 		{
 			this.setLayout(new FlowLayout());
 			
-			musicBar = new JProgressBar();
 			
 			playPauseButton = new JButton();
 			img = ImageIO.read(getClass().getResource("Play_pause_icon.png"));
@@ -33,6 +36,12 @@ public class ControlPanel extends JPanel{
 		    playPauseButton.setIcon(new ImageIcon(scaledimg));
 		    playPauseButton.setBorderPainted(false);
 		    playPauseButton.setContentAreaFilled(false);
+		    playPauseButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					controller.play();
+				}
+			});
 		    
 		    img = ImageIO.read(getClass().getResource("Forward_icon.png"));
 		    scaledimg = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
@@ -68,7 +77,6 @@ public class ControlPanel extends JPanel{
 			add(playPauseButton);
 			add(forwardButton);
 			add(nextButton);
-			add(musicBar);
 		}
 		catch(IOException e)
 		{
