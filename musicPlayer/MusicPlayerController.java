@@ -1,6 +1,5 @@
-package main.musicPlayer;
-
-import main.SongBuilder;
+package musicPlayer;
+import main.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,108 +13,64 @@ import java.util.LinkedList;
 import javax.sound.sampled.*;
 
 public class MusicPlayerController {
-	public File file, temp = new File("/Users/luismartinez/Downloads/src/main/musicPlayer/Sample 3.wav");
-	public ArrayList<SongBuilder> songBuilders;
+//	public File file, temp = new File("C:\\Users\\Rafael\\eclipse-workspace\\SWDESPA-DC2\\src\\musicPlayer\\Sample 3.wav"), temp2 = new File("C:\\Users\\Rafael\\eclipse-workspace\\SWDESPA-DC2\\src\\musicPlayer\\Sample 2.wav");
+	public File file = new File("placeholder.wav");
+
 	public ArrayList<File> songs;
 	public int songIndex = 0;
 	public ByteArrayOutputStream bytearrayos = new ByteArrayOutputStream();
 	public byte[] bytearray;
-
+	private DBConnector dbcon = new DBConnector();
+	public String nowplaying;
+	
 	public boolean playing = false, opened = false, playlist = true;
 	Clip clip;
 
 	public MusicPlayerController() {
-		this.songBuilders = new ArrayList<>();
 		this.songs = new ArrayList<>();
 		try {
 			clip = AudioSystem.getClip();
  		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
-	public void play()
+	public void play(String songname) throws LineUnavailableException, IOException, UnsupportedAudioFileException, InterruptedException
 	{
-		if (playlist) {
-			System.out.println(songs.size());
-			System.out.println(songs.get(0).canRead());
-			file = songs.get(songIndex);
-			songIndex++;
-
-			if (songIndex > songs.size())
-				songIndex = 0;
-		}
-		try
-		{
-			if (!playing) {
-				if (!opened)
-					clip.open(AudioSystem.getAudioInputStream(file));
-
-				clip.start();
-				playing = true;
-				opened = true;
-
-				clip.addLineListener(event -> {
-					if (event.getType() == LineEvent.Type.CLOSE) {
-						opened = false;
-						playing = false;
-						clip.stop();
-
-						if (playlist) {
-							this.play();
-						}
-					}
-				});
-			} else {
-				clip.stop();
-				playing = false;
-			}
-//			Thread.sleep(clip.getMicrosecondLength()/1000);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	public void playPlaylist() {
-		playlist = true;
-		for (int i = 0; i < songBuilders.size(); i++) {
-			try {
-				if (i < songBuilders.size() - 1) {
-					this.songs.add(songBuilders.get(i).buildAsSong(false));
-				} else {
-					this.songs.add(songBuilders.get(i).buildAsSong(true));
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		this.play();
+		nowplaying = songname;
+		loadSong(nowplaying);
+		
+//		clip.open(AudioSystem.getAudioInputStream(songs.get(i)));
+		clip.open(AudioSystem.getAudioInputStream(file));
+		clip.start();
+//		AudioInputStream ais = AudioSystem.getAudioInputStream(songs.get(i));
+//		AudioFormat format = ais.getFormat();
+//		long duration = ais.getFrameLength();
+//		long durationInSeconds = (long) ((duration+0.0) / format.getFrameRate());
+//		System.out.println(durationInSeconds);
+		Thread.sleep(5000);
+		clip.close();
 	}
 	
-	public void loadPlaylist(ResultSet songs) throws SQLException, IOException
+	public void loadSong(String songname)
 	{
-		while(songs.next())
-		{
-			Blob blob = songs.getBlob("song");
-			InputStream in = blob.getBinaryStream();
-			File temp = File.createTempFile("temp", ".wav");
-			System.out.println(temp.getAbsolutePath());
-			OutputStream out =new FileOutputStream(temp);
-//			AudioSystem.write(in, AudioFileFormat.Type.WAVE, temp);
-			byte[] buff = new byte[1024];
-			int len = 0;
-			while((len = in.read(buff)) != -1)
+		nowplaying = songname;
+		try {
+			ResultSet songsList = dbcon.getSongsWithName(nowplaying);
+			FileOutputStream fos = new FileOutputStream(file);
+			while(songsList.next())
 			{
-				bytearrayos.write(buff, 0, (int)blob.length());
+				InputStream is = songsList.getBinaryStream("song");
+				byte[] buffer = new byte[1024];
+                while (is.read(buffer) > 0) {
+                    fos.write(buffer);
+                }
 			}
-			bytearray = bytearrayos.toByteArray();
-			
-//			ByteArrayInputStream bis = new ByteArrayInputStream(bytearray);
-//	        AudioFormat audioFormat = new AudioFormat(44100, 16, 2, true, false);
-//	        AudioInputStream ais = new AudioInputStream(bis, audioFormat, 2048);
-			this.songs.add(temp);
-		}
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	}
+
 }

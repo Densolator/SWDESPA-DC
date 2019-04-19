@@ -15,7 +15,6 @@ public class SignupController {
 			Statement stmt = con.createStatement();
 			String sql = "INSERT INTO user (userid,username, password)" +  "VALUES ("+ userid +",'" + username + "','" + password + "')";
 			stmt.executeUpdate(sql);
-			System.out.println("hehe");
 			userid++;
 		}
 		catch(Exception e)

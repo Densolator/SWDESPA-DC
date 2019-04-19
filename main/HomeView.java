@@ -1,3 +1,4 @@
+package main;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,9 +11,11 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import profileModule.ProfilePanel;
 import loginModule.LoginPanel;
 import musicPlayer.ControlPanel;
 import signupModule.SignupFrame;
+import songsModule.SongsPanel;
 
 public class HomeView {
 	private JFrame homeFrame;
@@ -30,9 +33,12 @@ public class HomeView {
 	private ProfilePanel profilePanel;
 	private SongsPanel songsPanel;
 	private PlaylistPanel playlistPanel;
+//	public HomeController controller;
 	
 	public HomeView()
 	{
+//		controller = new HomeController();
+		
 		Border blackBorder = BorderFactory.createLineBorder(Color.BLACK);
 		westPanel = new JPanel(new GridLayout(2,0));
 		westPanel.setBorder(blackBorder);
@@ -79,11 +85,11 @@ public class HomeView {
 		mainPanel.add(playlistPanel, "Playlist");
 		
 		
+		
 		homeFrame.add(westPanel, BorderLayout.WEST);
 		homeFrame.add(controlPanel, BorderLayout.PAGE_END);
 		homeFrame.add(mainPanel, BorderLayout.CENTER);
 		homeFrame.setVisible(true);
-	
 	}
 	
 	class btnLogin_Pressed implements ActionListener
@@ -103,9 +109,7 @@ public class HomeView {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-
 			logincardLayout.show(logincardPanel, "Login");
-			
 		}
 		
 	}
@@ -127,7 +131,7 @@ public class HomeView {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			maincardlayout.show(mainPanel, "Profile");;
+			maincardlayout.show(mainPanel, "Profile");
 		}
 		
 	} 
@@ -138,7 +142,7 @@ public class HomeView {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			maincardlayout.show(mainPanel, "Songs");;
+			maincardlayout.show(mainPanel, "Songs");
 		}
 		
 	}
@@ -149,7 +153,7 @@ public class HomeView {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			maincardlayout.show(mainPanel, "Playlist");;
+			maincardlayout.show(mainPanel, "Playlist");
 		}
 		
 	} 

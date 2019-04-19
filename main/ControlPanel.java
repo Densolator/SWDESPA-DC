@@ -1,12 +1,8 @@
-package musicPlayer;
+package main;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import javax.swing.border.Border;
 public class ControlPanel extends JPanel{
@@ -14,7 +10,6 @@ public class ControlPanel extends JPanel{
 	private JButton playPauseButton, forwardButton, backButton, nextButton, prevButton;
 	private JProgressBar musicBar;
 	private Image img, scaledimg;
-	private MusicPlayerController controller = new MusicPlayerController();
 	
 	public ControlPanel()
 	{
@@ -30,14 +25,14 @@ public class ControlPanel extends JPanel{
 		{
 			this.setLayout(new FlowLayout());
 			
+			musicBar = new JProgressBar();
 			
 			playPauseButton = new JButton();
-			img = ImageIO.read(getClass().getResource("Play_Icon.png"));
+			img = ImageIO.read(getClass().getResource("Play_pause_icon.png"));
 			scaledimg = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 		    playPauseButton.setIcon(new ImageIcon(scaledimg));
 		    playPauseButton.setBorderPainted(false);
 		    playPauseButton.setContentAreaFilled(false);
-		    playPauseButton.addActionListener(new btnPlay_Pressed());
 		    
 		    img = ImageIO.read(getClass().getResource("Forward_icon.png"));
 		    scaledimg = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
@@ -60,7 +55,7 @@ public class ControlPanel extends JPanel{
 			nextButton.setBorderPainted(false);
 			nextButton.setContentAreaFilled(false);
 			
-			img = ImageIO.read(getClass().getResource("Previous_icon.png"));
+			img = ImageIO.read(getClass().getResource("Back_button.png"));
 			scaledimg = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 			prevButton = new JButton();
 			prevButton.setIcon(new ImageIcon(scaledimg));
@@ -73,31 +68,11 @@ public class ControlPanel extends JPanel{
 			add(playPauseButton);
 			add(forwardButton);
 			add(nextButton);
+			add(musicBar);
 		}
 		catch(IOException e)
 		{
 			e.printStackTrace();
-		}
-	}
-	
-	class btnPlay_Pressed implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			try {
-				controller.play("song1");
-			} catch (LineUnavailableException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (UnsupportedAudioFileException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 		}
 	}
 }
