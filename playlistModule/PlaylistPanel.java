@@ -36,11 +36,8 @@ public class PlaylistPanel extends JPanel{
 		
 		//array of playlist names
 		DefaultListModel<String> names = new DefaultListModel<>();  
-	     //names.addElement("Playlist1");  
-	     //names.addElement("Playlist2");  
-	     //names.addElement("Playlist3");   
        
-        JList<String> playlist = new JList<>(names);  
+       	 	JList<String> playlist = new JList<>(names);  
 		playlist.setBounds(100, 75, 200, 600);
 		add(playlist);
 		
@@ -58,7 +55,7 @@ public class PlaylistPanel extends JPanel{
 			frmCreate = new JFrame ("Create Playlist");
 			frmCreate.setSize(500, 500);
 			Container pane = frmCreate.getContentPane();
-	        pane.setLayout(null);
+	        	pane.setLayout(null);
 			frmCreate.setVisible(true);
 			
 			//playlist details
@@ -76,12 +73,9 @@ public class PlaylistPanel extends JPanel{
 			frmCreate.add(label2);
 			
 			//how list looks like - array of strings
-		     DefaultListModel<String> songs = new DefaultListModel<>();  
-		     //songs.addElement("Song1");  
-		     //songs.addElement("Song2");  
-		     //songs.addElement("Song3");   
+		     	DefaultListModel<String> songs = new DefaultListModel<>();  
 	        
-	        JList<String> list = new JList<>(songs);  
+	       	 	JList<String> list = new JList<>(songs);  
 			list.setBounds(135, 110, 200, 300);
 			frmCreate.add(list);
 			
